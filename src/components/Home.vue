@@ -2,24 +2,36 @@
   <div>
     <v-container fluid> 
       <v-layout row>
-          <v-flex xs12>
-            <v-carousel>
-              <v-carousel-item
-                v-for="ad in ads"
-                :key="ad.id"
-                :src="ad.image"
-                reverse-transition="fade-transition"
-                transition="fade-transition"
-              ></v-carousel-item>
-            </v-carousel>
-
-            <v-card
-              class="mx-auto"
-              max-width="400"
+        <v-flex xs12>
+          <v-carousel>
+            <v-carousel-item
               v-for="ad in ads"
               :key="ad.id"
-              
+              :src="ad.image"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
             >
+            <div class="car-link">
+              <v-btn class="error" :to="'/ad/' + ad.id">{{ad.title}}</v-btn>
+            </div>
+            </v-carousel-item>
+          </v-carousel>
+        </v-flex>
+      </v-layout>
+    </v-container>
+
+    <template>
+      <v-container grid-list-{xs through xl}="lg">
+        <v-row>
+          <v-col
+            v-for="ad in ads"
+            :key="ad.id"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="3"
+          >
+            <v-card>
               <v-img
                 class="white--text"
                 height="200px"
@@ -38,21 +50,24 @@
                 <v-btn
                   text
                   color="orange"
+                  :to="'/ad/' + ad.id"
                 >
                   Открыть
                 </v-btn>
+                <v-spacer></v-spacer>
                 <v-btn
                   text
-                  raised
-                  color="orange"
+                  outlined 
+                  color="black"
                 >
                   Купить
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-flex>
-      </v-layout>
-    </v-container>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
   </div>
 </template>
 
@@ -89,9 +104,14 @@
 </script>
 
 <style >
-  .container,
-  .container--fluid {
-    padding: 0!important;
+  .car-link {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    background: rgba(0, 0, 0, .3);
+    transform: translate(-50%, 0);
+    padding: 10px;
+    border-radius: 5px;
   }
 </style>
 

@@ -3,76 +3,74 @@
     <v-container>
       <v-layout row>
           <v-flex xs12>
-            <h1>Регистрация</h1>
             <template>
-  <v-app >
-    <v-content>
-      <v-container
+              <v-app >
+                <v-content>
+                  <v-container
+                    fluid
+                  >
+                    <v-row
+                      justify="center"
+                    >
+                      <v-col
+                        cols="12"
+                        sm="8"
+                        md="6"
+                      >
+                        <v-card class="elevation-6">
+                          <v-toolbar color="yellow" flat>
+                            <v-toolbar-title>Регистрация</v-toolbar-title>
+            
+                          </v-toolbar>
+                          <v-card-text>
+                            <v-form v-model="valid" ref="form" validation>
+                              <v-text-field
+                                label="E-mail"
+                                name="emal"
+                                prepend-icon="mdi-account"
+                                type="email"
+                                :rules="emailRules"
+                                v-model="email"
+                              ></v-text-field>
 
-        fluid
-      >
-        <v-row
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="6"
-          >
-            <v-card class="elevation-6">
-              <v-toolbar color="yellow" flat>
-                <v-toolbar-title>Регистрация</v-toolbar-title>
- 
-              </v-toolbar>
-              <v-card-text>
-                <v-form v-model="valid" ref="form" validation>
-                  <v-text-field
-                    label="E-mail"
-                    name="emal"
-                    prepend-icon="mdi-account"
-                    type="email"
-                    :rules="emailRules"
-                    v-model="email"
-                  ></v-text-field>
+                              <v-text-field
+                                id="password"
+                                label="Пароль"
+                                name="password"
+                                prepend-icon="mdi-lock"
+                                type="password"
+                                v-model="password"
+                                :counter="6"
+                                :rules="passwordRules"
+                              ></v-text-field>
 
-                  <v-text-field
-                    id="password"
-                    label="Пароль"
-                    name="password"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                    v-model="password"
-                    :counter="6"
-                    :rules="passwordRules"
-                  ></v-text-field>
-
-                  <v-text-field
-                    id="confirm-password"
-                    label="Подтверждение пароля"
-                    name="confirm-password"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                    v-model="confirmPassword"
-                    :counter="6"
-                    :rules="confirmPasswordRules"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <div class="flex-grow-1"></div>
-                <v-btn 
-                dark 
-                color="brown" 
-                :disabled="!valid"
-                @click="onSubmit">Зарегистрироваться</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-  </v-app>
-</template>
+                              <v-text-field
+                                id="confirm-password"
+                                label="Подтверждение пароля"
+                                name="confirm-password"
+                                prepend-icon="mdi-lock"
+                                type="password"
+                                v-model="confirmPassword"
+                                :counter="6"
+                                :rules="confirmPasswordRules"
+                              ></v-text-field>
+                            </v-form>
+                          </v-card-text>
+                          <v-card-actions>
+                            <div class="flex-grow-1"></div>
+                            <v-btn 
+                            dark 
+                            color="blue-grey"
+                            :disabled="!valid"
+                            @click="onSubmit">Зарегистрироваться</v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-content>
+              </v-app>
+            </template>
           </v-flex>
       </v-layout>
     </v-container>
