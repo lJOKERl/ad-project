@@ -9,7 +9,7 @@
                   <v-container
                     fluid
                   >
-                    <v-row
+                    <v-row 
                       justify="center"
                     >
                       <v-col

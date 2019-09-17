@@ -2,13 +2,13 @@
   <div>
     <v-container>
       <v-layout row>
-          <v-flex xs12>
+          <v-flex xs8 offset-sm2>
             <h1 class="text--secondary mb-3">Объявление</h1>
-            <v-card class="elevation-6 mb-3" v-for="ad of ads" :key="ad.id">
+            <v-card>
               <v-layout >
-                <v-flex xs4>
+                <v-flex >
                   <v-img 
-                  :src="ad.image"
+                  
                   height="200px"
                   ></v-img>
                 </v-flex>
@@ -22,7 +22,6 @@
                       outlined 
                       class="ml-2"
                       color="blue-grey"
-                      :to="'/ad/' + ad.id"
                     >открыть</v-btn>
                   </v-card-actions>
                 </v-flex>
