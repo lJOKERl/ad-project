@@ -6,16 +6,14 @@
               <v-img
                 class="white--text"
                 height="200px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                :src="ad.image"
               >
-                <v-card-title class="align-end fill-height">Top 10 Australian beaches</v-card-title>
+                <v-card-title class="align-end fill-height">{{ad.title}}</v-card-title>
               </v-img>
 
               <v-card-text>
-                <span>Number 10</span><br>
                 <span class="text--primary">
-                  <span>Whitehaven Beach</span><br>
-                  <span>Whitsunday Island, Whitsunday Islands</span>
+                  <span>{{ad.description}}</span>
                 </span>
               </v-card-text>
 
@@ -42,9 +40,11 @@
 
 <script>
   export default {
-    data() {
-      return {
-        
+    props: ['id'],
+    computed: {
+      ad() {
+        const id = this.id;
+        return this.$store.getters.adById(id);
       }
     }
   }

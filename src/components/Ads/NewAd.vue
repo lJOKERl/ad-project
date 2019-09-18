@@ -76,7 +76,7 @@
                             dark 
                             color="blue-grey"
                             :disabled="!valid"
-                            @click="onSubmit">Создать</v-btn>
+                            @click="createAd">Создать</v-btn>
                           </v-card-actions>
                         </v-card>
                       </v-col>
@@ -102,14 +102,16 @@
       }
     },
     methods: {
-      onSubmit() {
+      createAd() {
           if (this.$refs.form.validate()) {
             const ad = {
               title: this.title,
               description: this.description,
-              promo: this.promo
+              promo: this.promo,
+              image: 'https://konkurs.trip2rus.ru/sites/default/files/field/images/foto/dsc_8947.jpg'
             }
-            console.log(ad);
+            
+            this.$store.dispatch('createAd', ad);
           }
         }
     }

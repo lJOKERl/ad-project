@@ -5,7 +5,7 @@
           <v-flex xs12 sm10 offset-sm1>
             <h1 class="text--secondary mb-3">Список объявлений</h1>
 
-            <v-card class="elevation-6 mb-3" v-for="ad of ads" :key="ad.id">
+            <v-card class="elevation-6 mb-3" v-for="ad of myAds" :key="ad.id">
               <v-layout >
                 <v-flex xs4>
                   <v-img 
@@ -37,31 +37,9 @@
 
 <script>
   export default {
-    data() {
-      return {
-        ads:[
-          {
-            title: 'Первое объявление', 
-            description: 'Lorem ipsum',
-            promo: false,
-            image: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            id: '1'
-          },
-          {
-            title: 'Второе объявление', 
-            description: 'Lorem ipsum',
-            promo: false,
-            image: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-            id: '2'
-          },
-          {
-            title: 'Третье объявление', 
-            description: 'Lorem ipsum',
-            promo: false,
-            image: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-            id: '3'
-          },
-        ]
+    computed: {
+      myAds() {
+        return this.$store.getters.ads;
       }
     }
   }
