@@ -21,6 +21,7 @@
                   <v-card-actions>
                     <v-btn
                       outlined 
+                      :to="'/ad/' + ad.id"
                       class="ml-2"
                       color="blue-grey"
                     >открыть</v-btn>

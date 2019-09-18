@@ -8,8 +8,8 @@
               v-for="ad in ads"
               :key="ad.id"
               :src="ad.image"
-              reverse-transition="fade-transition"
-              transition="fade-transition"
+              tile
+            
             >
             <div class="car-link">
               <v-btn class="error" :to="'/ad/' + ad.id">{{ad.title}}</v-btn>

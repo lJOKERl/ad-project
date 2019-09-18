@@ -1,36 +1,43 @@
 <template>
-  <div>
-    <v-container>
+ <v-container>
       <v-layout row>
-          <v-flex xs8 offset-sm2>
-            <h1 class="text--secondary mb-3">Объявление</h1>
+          <v-flex xs12 sm10 offset-sm1>
             <v-card>
-              <v-layout >
-                <v-flex >
-                  <v-img 
-                  
-                  height="200px"
-                  ></v-img>
-                </v-flex>
-                <v-flex col xs8>
-                  <v-card-text>
-                    <h2 class="text--secondary">Lorem</h2>
-                    <p>Lorem ipsum</p>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn 
-                      outlined 
-                      class="ml-2"
-                      color="blue-grey"
-                    >открыть</v-btn>
-                  </v-card-actions>
-                </v-flex>
-              </v-layout>
+              <v-img
+                class="white--text"
+                height="200px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="align-end fill-height">Top 10 Australian beaches</v-card-title>
+              </v-img>
+
+              <v-card-text>
+                <span>Number 10</span><br>
+                <span class="text--primary">
+                  <span>Whitehaven Beach</span><br>
+                  <span>Whitsunday Island, Whitsunday Islands</span>
+                </span>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  outlined
+                  color="blue-grey"
+                >
+                  Изменить
+                </v-btn>
+                <v-btn
+                  outlined
+                  color="success"
+                >
+                  Купить
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-flex>
       </v-layout>
-    </v-container>
-  </div>
+ </v-container>
 </template>
 
 <script>
