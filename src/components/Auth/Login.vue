@@ -84,6 +84,11 @@
         ]
       }
     },
+    computed: {
+      loading() {
+        return this.$store.getters.loading;
+      }
+    },
     methods: {
       onSubmit() {
         if (this.$refs.form.validate()) {
@@ -91,11 +96,20 @@
             email: this.email,
             password: this.password
           }
-
-          console.log(user)
+          this.$store.dispatch('loginUser',user)
+          .then(() => {
+            this.$router.push("/");
+          })
+          // .catch(error => console.log(error));
+          .catch(() => {});
         }
       }
-    }
+    },
+    created() {
+        if (this.$route.query['loginError']) {
+          this.$store.dispatch('setError', 'Для доступа к странице нужно войти на сайт.');
+        }
+      }
   }
 </script>
 

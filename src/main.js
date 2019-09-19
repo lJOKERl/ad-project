@@ -12,7 +12,8 @@ new Vue({
   router,
   store,
   vuetify,
-  create() {
+  render: h => h(App),
+  created() {
     fb.initializeApp({
       apiKey: "AIzaSyAjX1LiFF8GOGLXwAXKbt9y_OwwA1CDBrw",
       authDomain: "ad-project-d8a06.firebaseapp.com",
@@ -22,6 +23,11 @@ new Vue({
       messagingSenderId: "69520577378",
       appId: "1:69520577378:web:0b203a9515c171917b923b"
     })
+
+    fb.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoLoginUser', user)
+      }
+    })
   },
-  render: h => h(App)
 }).$mount('#app')
