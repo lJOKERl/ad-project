@@ -13,32 +13,14 @@ class Ad {
 
 export default {
   state: {
-    ads: [{
-        title: 'Первое объявление',
-        description: 'Lorem ipsum',
-        promo: true,
-        image: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        id: '1'
-      },
-      {
-        title: 'Второе объявление',
-        description: 'Lorem ipsum',
-        promo: true,
-        image: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        id: '2'
-      },
-      {
-        title: 'Третье объявление',
-        description: 'Lorem ipsum',
-        promo: false,
-        image: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        id: '3'
-      },
-    ]
+    ads: []
   },
   mutations: {
     createAd(state, payload){
       state.ads.push(payload);
+    },
+    loadAds(state, payload){
+      state.ads = payload;
     }
   },
   actions: {
@@ -48,18 +30,53 @@ export default {
 
       try {
         const newAd = new Ad(
-          payload.title, 
-          payload.description, 
-          getters.user.id, 
-          payload.image, 
+          payload.title,
+          payload.description,
+          getters.user,
+          payload.image,
           payload.promo
         );
-        
-        const fbValue = await fb.database().ref('ads').push(newAd);
-        console.log(getters.user);
+
+        const ad = await fb.database().ref('ads').push(newAd);
+
+        commit('setLoading', false);
+        commit('createAd', {
+          ...newAd,
+          id: ad.key
+        })
+
       } catch (error) {
         commit('setError', error.message);
         commit('setLoading', false);
+      }
+    },
+    // Получение данных с сервера
+    async fetchAds({commit}) {
+      commit('clearError')
+      commit('setLoading', false)
+
+      try {
+        const fbVal = await fb.database().ref('ads').once('value');
+        const ads = fbVal.val();
+
+
+        const resultAds = [];
+
+        Object.keys(ads).forEach(key => {
+          const ad = ads[key]
+          resultAds.push(
+            new Ad(ad.title, ad.description, ad.ownerId, ad.image, ad.promo, key)
+            )
+          })
+
+          console.log(resultAds)
+
+        commit('loadAds', resultAds);
+        commit('setLoading', false);
+      } catch (error) {
+        commit('setError', error.message);
+        commit('setLoading', false);
+        throw error
       }
     }
   },

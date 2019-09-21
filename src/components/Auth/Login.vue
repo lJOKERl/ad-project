@@ -21,7 +21,7 @@
                         <v-card class="elevation-6">
                           <v-toolbar color="yellow" flat>
                             <v-toolbar-title>Логин</v-toolbar-title>
-            
+
                           </v-toolbar>
                           <v-card-text>
                             <v-form v-model="valid" ref="form" validation>
@@ -48,8 +48,8 @@
                           </v-card-text>
                           <v-card-actions>
                             <div class="flex-grow-1"></div>
-                            <v-btn 
-                            dark 
+                            <v-btn
+                            dark
                             color="blue-grey"
                             :disabled="!valid"
                             @click="onSubmit">Войти</v-btn>
@@ -96,7 +96,7 @@
             email: this.email,
             password: this.password
           }
-          this.$store.dispatch('loginUser',user)
+          this.$store.dispatch('loginUser', user)
           .then(() => {
             this.$router.push("/");
           })

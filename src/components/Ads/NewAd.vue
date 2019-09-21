@@ -9,7 +9,7 @@
                   <v-container
                     fluid
                   >
-                    <v-row 
+                    <v-row
                       justify="center"
                     >
                       <v-col
@@ -20,7 +20,7 @@
                         <v-card class="elevation-6">
                           <v-toolbar color="yellow" flat>
                             <v-toolbar-title>Новое объявление</v-toolbar-title>
-            
+
                           </v-toolbar>
                           <v-card-text>
                             <v-form v-model="valid" ref="form" validation>
@@ -46,7 +46,7 @@
                             <v-layout>
                               <v-flex xs12 mt-3>
                                   <v-btn
-                                    outlined 
+                                    outlined
                                     color="blue-grey"
                                     class="ma-2"
                                   >
@@ -72,8 +72,8 @@
                           </v-card-text>
                           <v-card-actions>
                             <div class="flex-grow-1"></div>
-                            <v-btn 
-                            dark 
+                            <v-btn
+                            dark
                             color="blue-grey"
                             :disabled="!valid"
                             @click="createAd">Создать</v-btn>
@@ -110,8 +110,12 @@
               promo: this.promo,
               image: 'https://konkurs.trip2rus.ru/sites/default/files/field/images/foto/dsc_8947.jpg'
             }
-            
-            this.$store.dispatch('createAd', ad);
+
+            this.$store.dispatch('createAd', ad)
+              .then(() => {
+                this.$router.push('/list')
+              })
+              .catch(() => {})
           }
         }
     }

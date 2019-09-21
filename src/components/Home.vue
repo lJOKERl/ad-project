@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-container fluid> 
+  <div v-if="!loading">
+    <v-container fluid>
       <v-layout row>
         <v-flex xs12>
           <v-carousel>
@@ -9,7 +9,7 @@
               :key="ad.id"
               :src="ad.image"
               tile
-            
+
             >
             <div class="car-link">
               <v-btn class="error" :to="'/ad/' + ad.id">{{ad.title}}</v-btn>
@@ -57,7 +57,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                   text
-                  outlined 
+                  outlined
                   color="black"
                 >
                   Купить
@@ -69,6 +69,19 @@
       </v-container>
     </template>
   </div>
+  <div v-else>
+    <v-contai>
+      <v-layout row>
+        <v-flex xs12 class="text-xs-center">
+          <v-progress-circular
+            :size="50"
+            color="amber"
+            indeterminate
+          ></v-progress-circular>
+        </v-flex>
+      </v-layout>
+    </v-contai>
+  </div>
 </template>
 
 <script>
@@ -79,8 +92,11 @@
       },
       ads() {
         return this.$store.getters.ads;
+      },
+      loading() {
+        return this.$store.getters.loading
       }
-    }  
+    }
   }
 </script>
 
