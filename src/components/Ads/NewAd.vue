@@ -49,13 +49,20 @@
                                     outlined
                                     color="blue-grey"
                                     class="ma-2"
+                                    @click="triggerUpload"
                                   >
                                   <v-icon left dark>mdi-cloud-upload</v-icon>
                                   Загрузить изображение
                                 </v-btn>
+                                <input type="file"
+                                  ref="fileInput"
+                                  style="display: none"
+                                  accept="image/*"
+                                  @change="onFileChange"
+                                >
                                 <v-layout>
                                   <v-flex xs12 ma-2>
-                                    <img src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" width="100%" alt="">
+                                    <img :src="imageSrc" width="100%" alt="" v-if="imageSrc">
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -75,7 +82,7 @@
                             <v-btn
                             dark
                             color="blue-grey"
-                            :disabled="!valid"
+                            :disabled="!valid || !image"
                             @click="createAd">Создать</v-btn>
                           </v-card-actions>
                         </v-card>
@@ -99,16 +106,18 @@
         promo: false,
         description: '',
         valid: false,
+        image: null,
+        imageSrc: ''
       }
     },
     methods: {
       createAd() {
-          if (this.$refs.form.validate()) {
+          if (this.$refs.form.validate() && this.image) {
             const ad = {
               title: this.title,
               description: this.description,
               promo: this.promo,
-              image: 'https://konkurs.trip2rus.ru/sites/default/files/field/images/foto/dsc_8947.jpg'
+              image: this.image
             }
 
             this.$store.dispatch('createAd', ad)
@@ -117,6 +126,22 @@
               })
               .catch(() => {})
           }
+        },
+        triggerUpload() {
+          this.$refs.fileInput.click();
+        },
+        onFileChange(event) {
+          const file = event.target.files[0];
+
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            this.imageSrc = reader.result;
+          }
+
+          reader.readAsDataURL(file);
+          this.image = file;
+
         }
     }
   }

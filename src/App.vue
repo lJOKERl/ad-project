@@ -6,8 +6,8 @@
       app
     >
       <v-list dense>
-        <v-list-item 
-        
+        <v-list-item
+
         v-for="link of links" :key="link.title"
         :to="link.url"
         >
@@ -19,7 +19,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item 
+        <v-list-item
           @click="onLogout"
           v-if="isUserLoggedIn"
         >
@@ -42,20 +42,20 @@
         <v-btn text :to="'/'">Ad project</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
-      
+
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn text v-for="link of links" :key="link.title"
         :to="link.url">
           <v-icon left>{{link.icon}}</v-icon>{{link.title}}
         </v-btn>
-        <v-btn text 
+        <v-btn text
           @click="onLogout"
           v-if="isUserLoggedIn"
         >
           <v-icon left>mdi-logout</v-icon>Выйти
         </v-btn>
       </v-toolbar-items>
-    </v-app-bar> 
+    </v-app-bar>
 
     <v-content>
       <v-container
@@ -67,7 +67,7 @@
 
     <template v-if="error">
       <v-snackbar
-      :timeout="3000"
+      :timeout="7000"
       color="error"
       :value="true"
       @input="closeError"

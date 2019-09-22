@@ -24,25 +24,36 @@ export default {
     }
   },
   actions: {
+    // Отправка объявления на сервер
     async createAd({commit, getters}, payload){
       commit('clearError');
       commit('setLoading');
+
+      const image = payload.image;
 
       try {
         const newAd = new Ad(
           payload.title,
           payload.description,
           getters.user,
-          payload.image,
+          "",
           payload.promo
         );
 
         const ad = await fb.database().ref('ads').push(newAd);
+        const imageExt = image.name.slice(image.name.lastIndexOf('.'));
+        const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExt}`).put(image)
+        const imageSrc = await fb.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
+
+        await fb.database().ref('ads').child(ad.key).update({
+          image: imageSrc
+        })
 
         commit('setLoading', false);
         commit('createAd', {
           ...newAd,
-          id: ad.key
+          id: ad.key,
+          image: imageSrc
         })
 
       } catch (error) {
@@ -58,8 +69,6 @@ export default {
       try {
         const fbVal = await fb.database().ref('ads').once('value');
         const ads = fbVal.val();
-
-
         const resultAds = [];
 
         Object.keys(ads).forEach(key => {
@@ -68,8 +77,6 @@ export default {
             new Ad(ad.title, ad.description, ad.ownerId, ad.image, ad.promo, key)
             )
           })
-
-          console.log(resultAds)
 
         commit('loadAds', resultAds);
         commit('setLoading', false);
