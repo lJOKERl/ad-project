@@ -19,18 +19,10 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  outlined
-                  color="blue-grey"
-                >
-                  Изменить
-                </v-btn>
-                <v-btn
-                  outlined
-                  color="success"
-                >
-                  Купить
-                </v-btn>
+                
+                <edit-ad-modal :ad="ad" v-if="isOwner"></edit-ad-modal>
+                <buy-modal :ad="ad"></buy-modal>
+                
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -39,13 +31,23 @@
 </template>
 
 <script>
+import EditAdModal from "./EditAdModal";
+import BuyModal from "./../Shared/BuyModal";
   export default {
     props: ['id'],
     computed: {
       ad() {
         const id = this.id;
         return this.$store.getters.adById(id);
+      },
+      isOwner() {
+        return this.ad.ownerId === this.$store.getters.user;
       }
+    },
+
+    components: {
+      EditAdModal,
+      BuyModal
     }
   }
 </script>

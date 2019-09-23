@@ -5,9 +5,10 @@ import store from './store'
 import * as fb from 'firebase'
 import vuetify from './plugins/vuetify';
 import 'vuetify/dist/vuetify.min.css'
+import BuyModal from "./components/Shared/BuyModal";
 
 Vue.config.productionTip = false
-
+Vue.component('buy-modal', BuyModal);
 new Vue({
   router,
   store,

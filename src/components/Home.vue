@@ -55,13 +55,7 @@
                   Открыть
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn
-                  text
-                  outlined
-                  color="black"
-                >
-                  Купить
-                </v-btn>
+                <buy-modal :ad="ad"></buy-modal>
               </v-card-actions>
             </v-card>
           </v-col>

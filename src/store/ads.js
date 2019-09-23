@@ -21,6 +21,14 @@ export default {
     },
     loadAds(state, payload){
       state.ads = payload;
+    },
+    updateAd(state, {id, title, description}) {
+      const ad = state.ads.find(a => {
+        return a.id === id
+      })
+
+      ad.title = title
+      ad.description = description
     }
   },
   actions: {
@@ -85,6 +93,25 @@ export default {
         commit('setLoading', false);
         throw error
       }
+    },
+    // Редактирование объявления
+    async updateAd({commit}, {id, title, description}) {
+      commit('clearError')
+      commit('setLoading', true)
+
+      try {
+        await fb.database().ref('ads').child(id).update({
+          title,
+          description,
+        });
+        commit('updateAd', {
+          id, title, description
+        })
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+      }
     }
   },
   getters: {
@@ -94,8 +121,10 @@ export default {
     promoAds(state) {
       return state.ads.filter(ad => ad.promo);
     },
-    myAds(state) {
-      return state.ads;
+    myAds(state, getters) {
+      return state.ads.filter(ad => {
+        return ad.ownerId === getters.user
+      })
     },
     adById(state) {
       return adId => {
