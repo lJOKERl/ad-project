@@ -12,7 +12,7 @@ export default {
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload.id;
+      state.user = payload;
     }
   },
   actions: {
@@ -36,7 +36,7 @@ export default {
 
       try {
         const user = await fb.auth().signInWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.user.uid));
+        commit('setUser', new User(user.user.uid).id);
         commit('setLoading', false);
       } catch (error) {
         commit('setLoading', false);
